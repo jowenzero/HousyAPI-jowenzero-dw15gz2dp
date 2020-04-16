@@ -6,8 +6,13 @@ module.exports = {
       'users', 
       [
         {
+          fullName: "spiderman",
           username: "spiderman",
+          email: "spiderman@gmail.com",
           password: "lovespiderman",
+          listId: 1,
+          gender: "male",
+          address: "Jln. Marvel Universe, RT.21 RW.69",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -16,7 +21,7 @@ module.exports = {
           username: "spiderman",
           email: "spiderman@gmail.com",
           password: "lovespiderman",
-          listAsId: 1,
+          listId: 2,
           gender: "male",
           address: "Jln. Marvel Universe, RT.21 RW.69",
           createdAt: new Date(),
