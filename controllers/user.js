@@ -41,32 +41,3 @@ exports.destroy = async (req, res) => {
     console.log(error);
   }
 };
-
-
-
-
-
-
-/*/////////////// UNUSED ///////////////*/
-exports.show = async (req, res) => {
-  try {
-    const user = await User.findOne({ where: { id: req.params.id } });
-    res.send({ data: user });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-exports.create = async (req, res) => {
-  try {
-    const newUser = await User.create(req.body);
-    const { username } = newUser;
-    const data = {
-      username,
-    };
-    res.status(201).send({ data });
-  } catch (error) {
-    res.status(500).send({ message: "Failed to create user!" })
-    console.log(error);
-  }
-};
