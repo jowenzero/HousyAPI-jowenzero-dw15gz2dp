@@ -1,4 +1,6 @@
 'use strict';
+// BlanK pass: zeds2020
+// jesTER pass: cherry4laifu
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -6,24 +8,24 @@ module.exports = {
       'users', 
       [
         {
-          fullName: "spiderman",
-          username: "spiderman",
-          email: "spiderman@gmail.com",
-          password: "lovespiderman",
+          fullName: "Ray Collins",
+          username: "BlanK",
+          email: "raycollins@gmail.com",
+          password: "$2b$10$LpspbePytW14/w1CnpTuk.KRIQycHp6Rn3WLIZhRVijF8k/jtpXTe",
           listId: 1,
           gender: "male",
-          address: "Jln. Marvel Universe, RT.21 RW.69",
+          address: "Kalta Sector 6",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          fullName: "spiderman",
-          username: "spiderman",
-          email: "spiderman@gmail.com",
-          password: "lovespiderman",
+          fullName: "Kazuya Nishigami",
+          username: "jester",
+          email: "kazuNishi@gmail.com",
+          password: "$2b$10$USho0h9uiwcCo4CvYXONduTXzcpe/JSrMldsrveY7.sgVzyJrPwUe",
           listId: 2,
           gender: "male",
-          address: "Jln. Marvel Universe, RT.21 RW.69",
+          address: "Kalta Sector 4",
           createdAt: new Date(),
           updatedAt: new Date(),
         }
