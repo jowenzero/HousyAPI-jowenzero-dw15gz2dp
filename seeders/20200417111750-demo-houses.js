@@ -22,7 +22,7 @@ module.exports = {
           cityId: 2,
           address: "Permata Bintaro Residence Pondok Aren,Tangerang Selatan",
           price: 4000000,
-          typeRent: "year",
+          typeRent: "month",
           amenities: "Furnished",
           bedRoom: 2,
           bathRoom: 1,

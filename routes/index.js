@@ -18,7 +18,6 @@ const {
   update: updateTransaction,
   show: findTransaction,
   index: findTransactions,
-  destroy: deleteTransactions,
 } = require("../controllers/transaction");
 
 // Middlewares

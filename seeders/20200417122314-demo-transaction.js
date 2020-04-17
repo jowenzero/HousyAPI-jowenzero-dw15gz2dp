@@ -21,7 +21,7 @@ module.exports = {
           houseId: 2,
           total: 5000000,
           status: "Waiting Payment",
-          attachment: "bca.id",
+          attachment: "bni.id",
           createdAt: new Date(),
           updatedAt: new Date(),
         }
