@@ -57,7 +57,7 @@ exports.register = async (req, res) => {
             username,
             token,
           };
-          res.status(200).send({ data });
+          res.status(201).send({ data });
         });
       });
     } else {

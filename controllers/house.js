@@ -70,7 +70,7 @@ exports.update = async (req, res) => {
       where: { id: req.params.id },
       attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
     });
-    res.status(201).send({ data: house });
+    res.status(200).send({ data: house });
   } catch (error) {
     res.status(500).send({ message: "Failed to update house!" })
     console.log(error);

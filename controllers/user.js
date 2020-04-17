@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
 exports.showUser = async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.user } });
-    res.send({ data: user });
+    res.status(200).send({ data: user });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a user!" })
     console.log(error);
