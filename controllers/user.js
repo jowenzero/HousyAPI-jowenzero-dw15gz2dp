@@ -47,7 +47,7 @@ exports.destroy = async (req, res) => {
 
 
 
-// unused
+/*//////////////// UNUSED ////////////////*/
 exports.show = async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } });
