@@ -1,5 +1,5 @@
 'use strict';
-// BlanK pass: zeds2020
+// BlanK pass: admin
 // jesTER pass: cherry4laifu
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
           fullName: "Ray Collins",
           username: "BlanK",
           email: "raycollins@gmail.com",
-          password: "$2b$10$LpspbePytW14/w1CnpTuk.KRIQycHp6Rn3WLIZhRVijF8k/jtpXTe",
+          password: "$2b$10$waqbalm7Pg2ErQeiZvOueumh6AY0yMjVteNmVgnqLpM3iizzA2KIi",
           listId: 1,
           gender: "male",
           address: "Kalta Sector 6",

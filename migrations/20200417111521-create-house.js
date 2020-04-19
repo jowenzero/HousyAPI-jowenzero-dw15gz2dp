@@ -31,7 +31,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       amenities: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        get() {
+          return this.getDataValue('amenities').split(', ')
+        },
+        set(val) {
+          this.setDataValue('amenities',val.join(', '));
+        },
       },
       bedRoom: {
         type: Sequelize.INTEGER

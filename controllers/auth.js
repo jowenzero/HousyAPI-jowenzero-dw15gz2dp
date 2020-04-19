@@ -10,6 +10,7 @@ exports.login = async (req, res) => {
         username,
       },
     });
+    const { ListId } = user;
 
     if (!user) {
       res.status(401).send({ message: "Invalid login" });
@@ -20,6 +21,7 @@ exports.login = async (req, res) => {
             const data = {
               username,
               token,
+              ListId,
             };
             res.status(200).send({ data });
           });
