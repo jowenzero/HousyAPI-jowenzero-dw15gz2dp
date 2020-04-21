@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   index: findUsers,
   showUser: findTheUser,
+  update: updateUser,
   destroy: deleteUser,
 } = require("../controllers/user");
 const { login, register } = require("../controllers/auth");
@@ -32,7 +33,8 @@ router.post("/signup", register);
 // User routes
 router.get("/users", findUsers);
 router.get("/user", authenticated, findTheUser);
-router.delete("/user/:id", deleteUser);
+router.patch("/user", authenticated, updateUser);
+router.delete("/user", authenticated, deleteUser);
 
 // House routes
 router.get("/houses", findHouses);

@@ -32,10 +32,24 @@ exports.showUser = async (req, res) => {
   }
 };
 
+exports.update = async (req, res) => {
+  try {
+    await User.update(req.body, { where: { id: req.user.id } });
+    const user = await User.findOne({
+      ...userParam,
+      where: { id: req.user.id },
+    });
+    res.status(200).send({ data: user });
+  } catch (error) {
+    res.status(500).send({ message: "Failed to update user!" })
+    console.log(error);
+  }
+};
+
 exports.destroy = async (req, res) => {
   try {
-    await User.destroy({ where: { id: req.params.id } });
-    const { id } = req.params;
+    await User.destroy({ where: { id: req.user.id } });
+    const { id } = req.user;
     const data = {
       id,
     };

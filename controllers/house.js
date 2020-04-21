@@ -84,12 +84,17 @@ exports.showHouse = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const newHouse = await House.create(req.body);
-    const house = await House.findOne({
-      ...houseParam,
-      where: { id: newHouse.id },
-    });
-    res.status(201).send({ data: house });
+    if (req.user.ListId === 1) {
+      const newHouse = await House.create(req.body);
+      const house = await House.findOne({
+        ...houseParam,
+        where: { id: newHouse.id },
+      });
+      res.status(201).send({ data: house });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
     res.status(500).send({ message: "Failed to create house!" })
     console.log(error);
@@ -98,12 +103,17 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    await House.update(req.body, { where: { id: req.params.id } });
-    const house = await House.findOne({
-      ...houseParam,
-      where: { id: req.params.id },
-    });
-    res.status(200).send({ data: house });
+    if (req.user.ListId === 1) {
+      await House.update(req.body, { where: { id: req.params.id } });
+      const house = await House.findOne({
+        ...houseParam,
+        where: { id: req.params.id },
+      });
+      res.status(200).send({ data: house });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
     res.status(500).send({ message: "Failed to update house!" })
     console.log(error);
@@ -112,12 +122,17 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
   try {
-    await House.destroy({ where: { id: req.params.id } });
-    const { id } = req.params;
-    const data = {
-      id,
-    };
-    res.status(200).send({ data });
+    if (req.user.ListId === 1) {
+      await House.destroy({ where: { id: req.params.id } });
+      const { id } = req.params;
+      const data = {
+        id,
+      };
+      res.status(200).send({ data });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
     res.status(500).send({ message: "Failed to delete house!" })
     console.log(error);

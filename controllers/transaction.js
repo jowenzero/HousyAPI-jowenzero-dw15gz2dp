@@ -51,25 +51,35 @@ exports.show = async (req, res) => {
 
 exports.showTransaction = async (req, res) => {
   try {
-    const transaction = await Transaction.findAll({
-      ...transactionParam,
-      where: { UserId: req.user.id },
-    });
-    res.status(200).send({ data: transaction });
+    if (req.user.ListId === 2) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { UserId: req.user.id },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
-    res.status(500).send({ message: "Failed to view a transaction!" })
+    res.status(500).send({ message: "Failed to view user transactions!" })
     console.log(error);
   }
 };
 
 exports.create = async (req, res) => {
   try {
-    const newTransaction = await Transaction.create(req.body);
-    const transaction = await Transaction.findOne({
-      ...transactionParam,
-      where: { id: newTransaction.id },
-    });
-    res.status(201).send({ data: transaction });
+    if (req.user.ListId === 2) {
+      const newTransaction = await Transaction.create(req.body);
+      const transaction = await Transaction.findOne({
+        ...transactionParam,
+        where: { id: newTransaction.id },
+      });
+      res.status(201).send({ data: transaction });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
     res.status(500).send({ message: "Failed to create transaction!" })
     console.log(error);
@@ -78,12 +88,17 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    await Transaction.update(req.body, { where: { id: req.params.id } });
-    const transaction = await Transaction.findOne({
-      ...transactionParam,
-      where: { id: req.params.id },
-    });
-    res.status(200).send({ data: transaction });
+    if (req.user.ListId === 2) {
+      await Transaction.update(req.body, { where: { id: req.params.id } });
+      const transaction = await Transaction.findOne({
+        ...transactionParam,
+        where: { id: req.params.id },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
   } catch (error) {
     res.status(500).send({ message: "Failed to update transaction!" })
     console.log(error);
