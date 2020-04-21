@@ -14,7 +14,12 @@ module.exports = {
           name: "Tangerang",
           createdAt: new Date(),
           updatedAt: new Date(),
-        }
+        },
+        {
+          name: "Bandung",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ], 
       {}
     );

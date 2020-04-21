@@ -1,6 +1,8 @@
 'use strict';
 // BlanK pass: admin
-// jesTER pass: cherry4laifu
+// jester pass: cherry4laifu
+// KING pass: iamking
+// emili4 pass: emilibot
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -30,7 +32,31 @@ module.exports = {
           address: "Kalta Sector 4",
           createdAt: new Date(),
           updatedAt: new Date(),
-        }
+        },
+        {
+          fullName: "Kiyazi Nishigami",
+          username: "KING",
+          email: "kiyaziKING@gmail.com",
+          password: "$2b$10$uUdZ31hOXhIJa8/35LkgHO6z6Ybm1BngGALntcrTWdIgkoaQAy53m",
+          listId: 1,
+          gender: "male",
+          phone: "0813-5613-5494",
+          address: "Kalta Sector 1",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          fullName: "Emilia Valentine",
+          username: "emili4",
+          email: "emiliavalentine@gmail.com",
+          password: "$2b$10$4qacbaaChAIaNq5KT8G71eXOm3jwrK.9xXKWpOKlwrSzLLFXkIRKq",
+          listId: 2,
+          gender: "female",
+          phone: "0812-2356-7674",
+          address: "Kalta Sector 5",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ], 
       {}
     );

@@ -7,7 +7,7 @@ exports.authenticated = async (req, res, next) => {
 
     if (token) {
       token = token.replace("Bearer ", "");
-      const data = jwt.verify(token, "zeds-encrypt-key");
+      const data = jwt.verify(token, process.env.SECRET_KEY);
 
       if (data) {
         const user = await User.findOne({ where: { id: data.id } });

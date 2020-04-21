@@ -9,15 +9,17 @@ const { login, register } = require("../controllers/auth");
 const {
   index: findHouses,
   show: findHouse,
+  showHouse: findUserHouse,
   create: createHouse,
   update: updateHouse,
   destroy: deleteHouse,
 } = require("../controllers/house");
 const {
+  index: findTransactions,
+  show: findTransaction,
+  showTransaction: findUserTransaction,
   create: createTransaction,
   update: updateTransaction,
-  show: findTransaction,
-  index: findTransactions,
 } = require("../controllers/transaction");
 
 // Middlewares
@@ -35,15 +37,17 @@ router.delete("/user/:id", deleteUser);
 // House routes
 router.get("/houses", findHouses);
 router.get("/house/:id", findHouse);
+router.get("/user/house", authenticated, findUserHouse);
 router.post("/house", authenticated, createHouse);
 router.patch("/house/:id", authenticated, updateHouse);
 router.delete("/house/:id", authenticated, deleteHouse);
 
 // Transaction routes
+router.get("/transactions", findTransactions);
+router.get("/transaction/:id", findTransaction);
+router.get("/user/transaction", authenticated, findUserTransaction);
 router.post("/transaction", authenticated, createTransaction);
 router.patch("/transaction/:id", authenticated, updateTransaction);
-router.get("/transaction/:id", findTransaction);
-router.get("/transactions", findTransactions);
 
 
 module.exports = router;

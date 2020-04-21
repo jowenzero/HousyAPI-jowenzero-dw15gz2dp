@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
     } else {
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
-          jwt.sign({ id: user.id }, "zeds-encrypt-key", (err, token) => {
+          jwt.sign({ id: user.id }, process.env.SECRET_KEY, (err, token) => {
             const data = {
               username,
               token,
@@ -55,7 +55,7 @@ exports.register = async (req, res) => {
         const newUser = await User.create(value);
         const { ListId } = newUser;
 
-        jwt.sign({ id: newUser.id }, "zeds-encrypt-key", (err, token) => {
+        jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, (err, token) => {
           const data = {
             username,
             token,

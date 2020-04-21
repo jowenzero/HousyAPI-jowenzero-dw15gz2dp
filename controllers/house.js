@@ -1,67 +1,51 @@
 const { House, City, User } = require("../models");
 const { Op } = require("sequelize");
 
+const houseParam = {
+  include: [
+    {
+      model: City,
+      attributes: ["id", "name"],
+    },
+    {
+      model: User,
+      attributes: ["id", "username"],
+    },
+  ],
+  attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
+}
+
 exports.index = async (req, res) => {
   try {
     if (req.query.typeRent && req.query.belowPrice) {
       const houses = await House.findAll({
-        include: [
-          {
-            model: City,
-            attributes: ["id", "name"],
-          },
-          {
-            model: User,
-            attributes: ["id", "username"],
-          },
-        ],
+        ...houseParam,
         where: {
           [Op.and]: [
             { typeRent: { [Op.eq]: req.query.typeRent } }, 
             { price: { [Op.lt]: req.query.belowPrice } }
           ]
         },
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
       });
 
       res.status(200).send({ data: houses });
     }
     else if (req.query.typeRent || req.query.belowPrice) {
       const houses = await House.findAll({
-        include: [
-          {
-            model: City,
-            attributes: ["id", "name"],
-          },
-          {
-            model: User,
-            attributes: ["id", "username"],
-          },
-        ],
+        ...houseParam,
         where: {
           [Op.or]: [
             { typeRent: { [Op.eq]: req.query.typeRent } }, 
             { price: { [Op.lt]: req.query.belowPrice } }
           ]
         },
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
       });
 
       res.status(200).send({ data: houses });
     }
     else {
       const houses = await House.findAll({
-        include: [
-          {
-            model: City,
-            attributes: ["id", "name"],
-          },
-          {
-            model: User,
-            attributes: ["id", "username"],
-          },
-        ],
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
+        ...houseParam,
       });
 
       res.status(200).send({ data: houses });
@@ -75,18 +59,8 @@ exports.index = async (req, res) => {
 exports.show = async (req, res) => {
   try {
     const house = await House.findOne({
-      include: [
-        {
-          model: City,
-          attributes: ["id", "name"],
-        },
-        {
-          model: User,
-          attributes: ["id", "username"],
-        },
-      ],
+      ...houseParam,
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.send({ data: house });
   } catch (error) {
@@ -95,22 +69,25 @@ exports.show = async (req, res) => {
   }
 };
 
+exports.showHouse = async (req, res) => {
+  try {
+    const house = await House.findAll({
+      ...houseParam,
+      where: { UserId: req.user.id },
+    });
+    res.send({ data: house });
+  } catch (error) {
+    res.status(500).send({ message: "Failed to view user houses!" })
+    console.log(error);
+  }
+};
+
 exports.create = async (req, res) => {
   try {
     const newHouse = await House.create(req.body);
     const house = await House.findOne({
-      include: [
-        {
-          model: City,
-          attributes: ["id", "name"],
-        },
-        {
-          model: User,
-          attributes: ["id", "username"],
-        },
-      ],
+      ...houseParam,
       where: { id: newHouse.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.status(201).send({ data: house });
   } catch (error) {
@@ -123,18 +100,8 @@ exports.update = async (req, res) => {
   try {
     await House.update(req.body, { where: { id: req.params.id } });
     const house = await House.findOne({
-      include: [
-        {
-          model: City,
-          attributes: ["id", "name"],
-        },
-        {
-          model: User,
-          attributes: ["id", "username"],
-        },
-      ],
+      ...houseParam,
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.status(200).send({ data: house });
   } catch (error) {

@@ -1,15 +1,19 @@
 const { User, List } = require("../models");
 
+const userParam = {
+  include: [
+    {
+      model: List,
+      attributes: ["id", "name"],
+    },
+  ],
+  attributes: { exclude: ["createdAt", "updatedAt", "ListId"] },
+};
+
 exports.index = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: [
-        {
-          model: List,
-          attributes: ["id", "name"],
-        },
-      ],
-      attributes: { exclude: ["createdAt", "updatedAt", "ListId"] },
+      ...userParam,
     });
     res.status(200).send({ data: users });
   } catch (error) {
