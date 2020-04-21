@@ -53,17 +53,19 @@ exports.register = async (req, res) => {
           password: hash,
         };
         const newUser = await User.create(value);
+        const { ListId } = newUser;
 
         jwt.sign({ id: newUser.id }, "zeds-encrypt-key", (err, token) => {
           const data = {
             username,
             token,
+            ListId,
           };
           res.status(201).send({ data });
         });
       });
     } else {
-      res.status(400).send({ message: "Email already registered" });
+      res.status(400).send({ message: "User already registered" });
     }
   } catch (error) {
     res.status(500).send({ message: "Server Internal Error" });

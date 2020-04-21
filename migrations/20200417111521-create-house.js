@@ -31,19 +31,23 @@ module.exports = {
         type: Sequelize.STRING
       },
       amenities: {
-        type: Sequelize.STRING,
-        get() {
-          return this.getDataValue('amenities').split(', ')
-        },
-        set(val) {
-          this.setDataValue('amenities',val.join(', '));
-        },
+        type: Sequelize.STRING
       },
       bedRoom: {
         type: Sequelize.INTEGER
       },
       bathRoom: {
         type: Sequelize.INTEGER
+      },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "RESTRICT",
       },
       createdAt: {
         allowNull: false,

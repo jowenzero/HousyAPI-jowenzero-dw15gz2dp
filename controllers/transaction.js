@@ -1,4 +1,4 @@
-const { Transaction, House, City } = require("../models");
+const { Transaction, House, City, User } = require("../models");
 
 exports.create = async (req, res) => {
   try {
@@ -11,13 +11,21 @@ exports.create = async (req, res) => {
           include: [
             {
               model: City,
-              attributes: { exclude: ["createdAt", "updatedAt"] },
-            }
+              attributes: ["id", "name"],
+            },
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
           ]
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: newTransaction.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "HouseId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "HouseId", "UserId"] },
     });
     res.status(201).send({ data: transaction });
   } catch (error) {
@@ -37,13 +45,21 @@ exports.update = async (req, res) => {
           include: [
             {
               model: City,
-              attributes: { exclude: ["createdAt", "updatedAt"] },
-            }
+              attributes: ["id", "name"],
+            },
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
           ]
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "HouseId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "HouseId", "UserId"] },
     });
     res.status(200).send({ data: transaction });
   } catch (error) {
@@ -62,13 +78,21 @@ exports.show = async (req, res) => {
           include: [
             {
               model: City,
-              attributes: { exclude: ["createdAt", "updatedAt"] },
-            }
+              attributes: ["id", "name"],
+            },
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
           ]
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "HouseId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "HouseId", "UserId"] },
     });
     res.status(200).send({ data: transaction });
   } catch (error) {
@@ -87,12 +111,20 @@ exports.index = async (req, res) => {
           include: [
             {
               model: City,
-              attributes: { exclude: ["createdAt", "updatedAt"] },
-            }
+              attributes: ["id", "name"],
+            },
+            {
+              model: User,
+              attributes: ["id", "username"],
+            },
           ]
         },
+        {
+          model: User,
+          attributes: ["id", "username"],
+        },
       ],
-      attributes: { exclude: ["createdAt", "updatedAt", "HouseId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "HouseId", "UserId"] },
     });
     res.status(200).send({ data: transaction });
   } catch (error) {

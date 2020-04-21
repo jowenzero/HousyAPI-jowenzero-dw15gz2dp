@@ -15,7 +15,7 @@ exports.authenticated = async (req, res, next) => {
         if (!user) {
           res.status(403).send({ message: "Forbidden request!" });
         } else {
-          req.user = user.id;
+          req.user = user;
           req.token = token;
           next();
         }

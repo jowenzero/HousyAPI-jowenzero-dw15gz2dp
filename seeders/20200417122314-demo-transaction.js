@@ -12,6 +12,7 @@ module.exports = {
           total: 3000000,
           status: "Waiting Payment",
           attachment: "bca.id",
+          userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -20,8 +21,9 @@ module.exports = {
           checkout: "13-01-2021",
           houseId: 2,
           total: 5000000,
-          status: "Waiting Payment",
+          status: "Waiting Approve",
           attachment: "bni.id",
+          userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         }

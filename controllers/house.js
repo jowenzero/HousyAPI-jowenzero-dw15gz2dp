@@ -1,4 +1,4 @@
-const { House, City } = require("../models");
+const { House, City, User } = require("../models");
 const { Op } = require("sequelize");
 
 exports.index = async (req, res) => {
@@ -8,7 +8,11 @@ exports.index = async (req, res) => {
         include: [
           {
             model: City,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
+            attributes: ["id", "name"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
           },
         ],
         where: {
@@ -17,7 +21,7 @@ exports.index = async (req, res) => {
             { price: { [Op.lt]: req.query.belowPrice } }
           ]
         },
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
       });
 
       res.status(200).send({ data: houses });
@@ -27,7 +31,11 @@ exports.index = async (req, res) => {
         include: [
           {
             model: City,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
+            attributes: ["id", "name"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
           },
         ],
         where: {
@@ -36,7 +44,7 @@ exports.index = async (req, res) => {
             { price: { [Op.lt]: req.query.belowPrice } }
           ]
         },
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
       });
 
       res.status(200).send({ data: houses });
@@ -46,10 +54,14 @@ exports.index = async (req, res) => {
         include: [
           {
             model: City,
-            attributes: { exclude: ["createdAt", "updatedAt"] },
+            attributes: ["id", "name"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
           },
         ],
-        attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+        attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
       });
 
       res.status(200).send({ data: houses });
@@ -66,11 +78,15 @@ exports.show = async (req, res) => {
       include: [
         {
           model: City,
-          attributes: { exclude: ["createdAt", "updatedAt"] },
+          attributes: ["id", "name"],
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.send({ data: house });
   } catch (error) {
@@ -86,11 +102,15 @@ exports.create = async (req, res) => {
       include: [
         {
           model: City,
-          attributes: { exclude: ["createdAt", "updatedAt"] },
+          attributes: ["id", "name"],
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: newHouse.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.status(201).send({ data: house });
   } catch (error) {
@@ -106,11 +126,15 @@ exports.update = async (req, res) => {
       include: [
         {
           model: City,
-          attributes: { exclude: ["createdAt", "updatedAt"] },
+          attributes: ["id", "name"],
+        },
+        {
+          model: User,
+          attributes: ["id", "username"],
         },
       ],
       where: { id: req.params.id },
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "CityId", "UserId"] },
     });
     res.status(200).send({ data: house });
   } catch (error) {

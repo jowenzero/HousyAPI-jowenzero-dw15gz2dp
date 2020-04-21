@@ -6,7 +6,7 @@ exports.index = async (req, res) => {
       include: [
         {
           model: List,
-          attributes: { exclude: ["createdAt", "updatedAt"] },
+          attributes: ["id", "name"],
         },
       ],
       attributes: { exclude: ["createdAt", "updatedAt", "ListId"] },
@@ -20,7 +20,7 @@ exports.index = async (req, res) => {
 
 exports.showUser = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.user } });
+    const user = await User.findOne({ where: { id: req.user.id } });
     res.status(200).send({ data: user });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a user!" })
