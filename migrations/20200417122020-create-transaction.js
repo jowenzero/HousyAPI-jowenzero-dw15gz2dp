@@ -43,6 +43,16 @@ module.exports = {
         onUpdate: "RESTRICT",
         onDelete: "RESTRICT",
       },
+      ownerId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "RESTRICT",
+        onDelete: "RESTRICT",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

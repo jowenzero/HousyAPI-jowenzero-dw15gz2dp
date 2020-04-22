@@ -58,6 +58,13 @@ exports.showTransaction = async (req, res) => {
       });
       res.status(200).send({ data: transaction });
     }
+    else if (req.user.ListId === 1) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { OwnerId: req.user.id },
+      });
+      res.status(200).send({ data: transaction });
+    }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
     }
