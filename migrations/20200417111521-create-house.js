@@ -39,6 +39,12 @@ module.exports = {
       bathRoom: {
         type: Sequelize.INTEGER
       },
+      area: {
+        type: Sequelize.INTEGER
+      },
+      description: {
+        type: Sequelize.STRING
+      },
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
