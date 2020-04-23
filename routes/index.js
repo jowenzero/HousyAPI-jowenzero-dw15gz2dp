@@ -6,7 +6,7 @@ const {
   update: updateUser,
   destroy: deleteUser,
 } = require("../controllers/user");
-const { login, register } = require("../controllers/auth");
+const { login, register, password } = require("../controllers/auth");
 const {
   index: findHouses,
   show: findHouse,
@@ -29,6 +29,7 @@ const { authenticated } = require("../middlewares/auth");
 // Auth routes
 router.post("/signin", login);
 router.post("/signup", register);
+router.post("/password", authenticated, password);
 
 // User routes
 router.get("/users", findUsers);

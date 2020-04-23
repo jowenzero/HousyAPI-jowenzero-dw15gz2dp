@@ -72,3 +72,36 @@ exports.register = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.password = async (req, res) => {
+  try {
+    const saltRounds = 10;
+    const { oldPass, confirmPass, newPass } = req.body;
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    if (!user && (oldPass !== confirmPass)) {
+      res.status(401).send({ message: "Invalid login" });
+    } else {
+      bcrypt.compare(confirmPass, user.password, (err, result) => {
+        if (result) {
+          bcrypt.hash(newPass, saltRounds, async (err, hash) => {
+            const value = {
+              password: hash,
+            };
+            await User.update(value, { where: { id: req.user.id } });
+            res.status(201).send({ message: "Password change successful!"});
+          });
+        } else {
+          res.status(401).send({ message: "Invalid login" });
+        }
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Server Internal Error" });
+    console.log(error);
+  }
+};
