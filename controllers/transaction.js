@@ -1,4 +1,5 @@
 const { Transaction, House, City, User } = require("../models");
+const { Op } = require("sequelize");
 
 const transactionParam = {
   include: [
@@ -47,7 +48,7 @@ exports.show = async (req, res) => {
     res.status(500).send({ message: "Failed to view a transaction!" })
     console.log(error);
   }
-};
+}
 
 exports.showTransaction = async (req, res) => {
   try {
@@ -62,6 +63,41 @@ exports.showTransaction = async (req, res) => {
       const transaction = await Transaction.findAll({
         ...transactionParam,
         where: { OwnerId: req.user.id },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Failed to view user transactions!" })
+    console.log(error);
+  }
+};
+
+exports.showHistory = async (req, res) => {
+  try {
+    if (req.user.ListId === 2) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { 
+          [Op.and]: [
+            { UserId: req.user.id  }, 
+            { [Op.or]: [{ status: "Approve" }, { status: "Cancel" }] }
+          ]
+        },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else if (req.user.ListId === 1) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { 
+          [Op.and]: [
+            { OwnerId: req.user.id  }, 
+            { [Op.or]: [{ status: "Approve" }, { status: "Cancel" }]}
+          ]
+        },
       });
       res.status(200).send({ data: transaction });
     }
@@ -95,7 +131,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    if (req.user.ListId === 1) {
+    if (req.user.ListId === 1 || req.user.ListId === 2) {
       await Transaction.update(req.body, { where: { id: req.params.id } });
       const transaction = await Transaction.findOne({
         ...transactionParam,

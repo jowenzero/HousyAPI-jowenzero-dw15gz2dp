@@ -19,6 +19,7 @@ const {
   index: findTransactions,
   show: findTransaction,
   showTransaction: findUserTransaction,
+  showHistory: findUserHistory,
   create: createTransaction,
   update: updateTransaction,
 } = require("../controllers/transaction");
@@ -49,6 +50,7 @@ router.delete("/house/:id", authenticated, deleteHouse);
 router.get("/transactions", findTransactions);
 router.get("/transaction/:id", findTransaction);
 router.get("/user/transaction", authenticated, findUserTransaction);
+router.get("/user/history", authenticated, findUserHistory);
 router.post("/transaction", authenticated, createTransaction);
 router.patch("/transaction/:id", authenticated, updateTransaction);
 
