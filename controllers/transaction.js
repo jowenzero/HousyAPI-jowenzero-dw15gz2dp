@@ -21,7 +21,7 @@ const transactionParam = {
       attributes: ["id", "username"],
     },
   ],
-  attributes: { exclude: ["createdAt", "updatedAt", "HouseId", "UserId"] },
+  attributes: { exclude: ["createdAt", "updatedAt"] },
 };
 
 exports.index = async (req, res) => {
@@ -95,7 +95,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    if (req.user.ListId === 2) {
+    if (req.user.ListId === 1) {
       await Transaction.update(req.body, { where: { id: req.params.id } });
       const transaction = await Transaction.findOne({
         ...transactionParam,
