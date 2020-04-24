@@ -55,14 +55,24 @@ exports.showTransaction = async (req, res) => {
     if (req.user.ListId === 2) {
       const transaction = await Transaction.findAll({
         ...transactionParam,
-        where: { UserId: req.user.id },
+        where: { 
+          [Op.and]: [
+            { UserId: req.user.id  }, 
+            { [Op.or]: [{ status: "Pending" }, { status: "Approve" }, { status: "Cancel" }]}
+          ]
+        },
       });
       res.status(200).send({ data: transaction });
     }
     else if (req.user.ListId === 1) {
       const transaction = await Transaction.findAll({
         ...transactionParam,
-        where: { OwnerId: req.user.id },
+        where: { 
+          [Op.and]: [
+            { OwnerId: req.user.id  }, 
+            { [Op.or]: [{ status: "Pending" }, { status: "Approve" }, { status: "Cancel" }]}
+          ]
+        },
       });
       res.status(200).send({ data: transaction });
     }
@@ -96,6 +106,41 @@ exports.showHistory = async (req, res) => {
           [Op.and]: [
             { OwnerId: req.user.id  }, 
             { [Op.or]: [{ status: "Approve" }, { status: "Cancel" }]}
+          ]
+        },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else {
+      res.status(401).send({ message: "You're unauthorized!" })
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Failed to view user transactions!" })
+    console.log(error);
+  }
+};
+
+exports.showBooking = async (req, res) => {
+  try {
+    if (req.user.ListId === 2) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { 
+          [Op.and]: [
+            { UserId: req.user.id  }, 
+            { [Op.or]: [{ status: "Waiting Payment" }, { status: "Pending" }] }
+          ]
+        },
+      });
+      res.status(200).send({ data: transaction });
+    }
+    else if (req.user.ListId === 1) {
+      const transaction = await Transaction.findAll({
+        ...transactionParam,
+        where: { 
+          [Op.and]: [
+            { OwnerId: req.user.id  }, 
+            { [Op.or]: [{ status: "Waiting Payment" }, { status: "Pending" }]}
           ]
         },
       });

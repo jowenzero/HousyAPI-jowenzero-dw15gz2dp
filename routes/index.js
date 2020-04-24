@@ -20,6 +20,7 @@ const {
   show: findTransaction,
   showTransaction: findUserTransaction,
   showHistory: findUserHistory,
+  showBooking: findUserBooking,
   create: createTransaction,
   update: updateTransaction,
 } = require("../controllers/transaction");
@@ -51,6 +52,7 @@ router.get("/transactions", findTransactions);
 router.get("/transaction/:id", findTransaction);
 router.get("/user/transaction", authenticated, findUserTransaction);
 router.get("/user/history", authenticated, findUserHistory);
+router.get("/user/booking", authenticated, findUserBooking);
 router.post("/transaction", authenticated, createTransaction);
 router.patch("/transaction/:id", authenticated, updateTransaction);
 
