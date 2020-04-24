@@ -69,7 +69,7 @@ exports.showTransaction = async (req, res) => {
         ...transactionParam,
         where: { 
           [Op.and]: [
-            { OwnerId: req.user.id  }, 
+            { ownerId: req.user.id  }, 
             { [Op.or]: [{ status: "Pending" }, { status: "Approve" }, { status: "Cancel" }]}
           ]
         },
@@ -104,7 +104,7 @@ exports.showHistory = async (req, res) => {
         ...transactionParam,
         where: { 
           [Op.and]: [
-            { OwnerId: req.user.id  }, 
+            { ownerId: req.user.id  }, 
             { [Op.or]: [{ status: "Approve" }, { status: "Cancel" }]}
           ]
         },
@@ -139,7 +139,7 @@ exports.showBooking = async (req, res) => {
         ...transactionParam,
         where: { 
           [Op.and]: [
-            { OwnerId: req.user.id  }, 
+            { ownerId: req.user.id  }, 
             { [Op.or]: [{ status: "Waiting Payment" }, { status: "Pending" }]}
           ]
         },

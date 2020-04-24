@@ -8,10 +8,11 @@ module.exports = (sequelize, DataTypes) => {
       total: DataTypes.INTEGER,
       status: {
         type: DataTypes.ENUM,
-        values: ["Waiting Payment", "Waiting Approve", "Approve"],
+        values: ["Waiting Payment", "Pending", "Approve", "Cancel"],
         defaultValue: "Waiting Payment",
       },
-      attachment: DataTypes.STRING
+      attachment: DataTypes.STRING,
+      ownerId: DataTypes.INTEGER
     }, 
     {})
   ;
