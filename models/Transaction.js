@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Transaction = sequelize.define(
     'Transaction', 
     {
-      checkin: DataTypes.STRING,
-      checkout: DataTypes.STRING,
+      checkin: DataTypes.DATE,
+      checkout: DataTypes.DATE,
       total: DataTypes.INTEGER,
       status: {
         type: DataTypes.ENUM,
@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "Waiting Payment",
       },
       attachment: DataTypes.STRING,
+      duration: DataTypes.INTEGER,
       ownerId: DataTypes.INTEGER
     }, 
     {})

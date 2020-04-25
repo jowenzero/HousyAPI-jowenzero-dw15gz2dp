@@ -12,7 +12,7 @@ const houseParam = {
       attributes: ["id", "username"],
     },
   ],
-  attributes: { exclude: ["createdAt", "updatedAt"] },
+  attributes: { exclude: ["updatedAt"] },
 }
 
 exports.index = async (req, res) => {
