@@ -12,7 +12,7 @@ const houseParam = {
       attributes: ["id", "username"],
     },
   ],
-  attributes: { exclude: ["updatedAt"] },
+  attributes: { exclude: ["createdAt", "updatedAt"] },
 }
 
 exports.index = async (req, res) => {
@@ -38,6 +38,16 @@ exports.index = async (req, res) => {
             { typeRent: { [Op.eq]: req.query.typeRent } }, 
             { price: { [Op.lt]: req.query.belowPrice } }
           ]
+        },
+      });
+
+      res.status(200).send({ data: houses });
+    }
+    else if (req.query.CityId) {
+      const houses = await House.findAll({
+        ...houseParam,
+        where: {
+          CityId: req.query.CityId
         },
       });
 
