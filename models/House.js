@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       bedRoom: DataTypes.INTEGER,
       bathRoom: DataTypes.INTEGER,
       area: DataTypes.INTEGER,
-      description: DataTypes.STRING
+      description: DataTypes.STRING(1000)
     }, 
     {})
   ;
