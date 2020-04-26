@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
             const data = {
               username,
               token,
-              ListId,
+              listId,
             };
             res.status(200).send({ data });
           });
