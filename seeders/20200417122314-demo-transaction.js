@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "Transactions", 
+      "transactions", 
       [
         {
           checkin: new Date("2020-04-30"),
@@ -89,6 +89,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Transactions", null, {});
+    return queryInterface.bulkDelete("transactions", null, {});
   }
 };
