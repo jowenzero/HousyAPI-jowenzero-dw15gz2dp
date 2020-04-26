@@ -10,7 +10,7 @@ exports.login = async (req, res) => {
         username,
       },
     });
-    const { ListId } = user;
+    const { listId } = user;
 
     if (!user) {
       res.status(401).send({ message: "Invalid login" });
