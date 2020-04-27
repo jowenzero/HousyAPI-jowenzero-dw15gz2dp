@@ -7,7 +7,7 @@ const userParam = {
       attributes: ["id", "name"],
     },
   ],
-  attributes: { exclude: ["createdAt", "updatedAt", "ListId"] },
+  attributes: { exclude: ["createdAt", "updatedAt", "listId"] },
 };
 
 exports.index = async (req, res) => {

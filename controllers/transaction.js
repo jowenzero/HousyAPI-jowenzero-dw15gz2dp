@@ -5,7 +5,7 @@ const transactionParam = {
   include: [
     {
       model: house,
-      attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
+      attributes: { exclude: ["createdAt", "updatedAt", "cityId"] },
       include: [
         {
           model: city,
@@ -52,7 +52,7 @@ exports.show = async (req, res) => {
 
 exports.showTransaction = async (req, res) => {
   try {
-    if (req.user.ListId === 2) {
+    if (req.user.listId === 2) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -64,7 +64,7 @@ exports.showTransaction = async (req, res) => {
       });
       res.status(200).send({ data: transactions });
     }
-    else if (req.user.ListId === 1) {
+    else if (req.user.listId === 1) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -87,7 +87,7 @@ exports.showTransaction = async (req, res) => {
 
 exports.showHistory = async (req, res) => {
   try {
-    if (req.user.ListId === 2) {
+    if (req.user.listId === 2) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -99,7 +99,7 @@ exports.showHistory = async (req, res) => {
       });
       res.status(200).send({ data: transactions });
     }
-    else if (req.user.ListId === 1) {
+    else if (req.user.listId === 1) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -122,7 +122,7 @@ exports.showHistory = async (req, res) => {
 
 exports.showBooking = async (req, res) => {
   try {
-    if (req.user.ListId === 2) {
+    if (req.user.listId === 2) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -134,7 +134,7 @@ exports.showBooking = async (req, res) => {
       });
       res.status(200).send({ data: transactions });
     }
-    else if (req.user.ListId === 1) {
+    else if (req.user.listId === 1) {
       const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
@@ -157,7 +157,7 @@ exports.showBooking = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    if (req.user.ListId === 2) {
+    if (req.user.listId === 2) {
       const newTransaction = await transaction.create(req.body);
       const transactions = await transaction.findOne({
         ...transactionParam,
@@ -176,7 +176,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    if (req.user.ListId === 1 || req.user.ListId === 2) {
+    if (req.user.listId === 1 || req.user.listId === 2) {
       await transaction.update(req.body, { where: { id: req.params.id } });
       const transactions = await transaction.findOne({
         ...transactionParam,

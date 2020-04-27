@@ -43,7 +43,7 @@ exports.index = async (req, res) => {
 
       res.status(200).send({ data: houses });
     }
-    else if (req.query.CityId) {
+    else if (req.query.cityId) {
       const houses = await house.findAll({
         ...houseParam,
         where: {
@@ -94,7 +94,7 @@ exports.showHouse = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    if (req.user.ListId === 1) {
+    if (req.user.listId === 1) {
       const newHouse = await house.create(req.body);
       const houses = await house.findOne({
         ...houseParam,
@@ -113,7 +113,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    if (req.user.ListId === 1) {
+    if (req.user.listId === 1) {
       await house.update(req.body, { where: { id: req.params.id } });
       const houses = await house.findOne({
         ...houseParam,
@@ -132,7 +132,7 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
   try {
-    if (req.user.ListId === 1) {
+    if (req.user.listId === 1) {
       await house.destroy({ where: { id: req.params.id } });
       const { id } = req.params;
       const data = {
