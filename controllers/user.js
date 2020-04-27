@@ -8,6 +8,9 @@ const userParam = {
     },
   ],
   attributes: { exclude: ["createdAt", "updatedAt", "listId"] },
+  order: [
+    ['id', 'ASC'],
+  ],
 };
 
 exports.index = async (req, res) => {

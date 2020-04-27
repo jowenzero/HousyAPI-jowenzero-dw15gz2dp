@@ -79,7 +79,7 @@ exports.password = async (req, res) => {
     const { oldPass, confirmPass, newPass } = req.body;
     const users = await user.findOne({
       where: {
-        id: req.users.id,
+        id: req.user.id,
       },
     });
 
@@ -92,7 +92,7 @@ exports.password = async (req, res) => {
             const value = {
               password: hash,
             };
-            await user.update(value, { where: { id: req.users.id } });
+            await user.update(value, { where: { id: req.user.id } });
             res.status(201).send({ message: "Password change successful!"});
           });
         } else {

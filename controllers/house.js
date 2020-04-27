@@ -13,6 +13,9 @@ const houseParam = {
     },
   ],
   attributes: { exclude: ["createdAt", "updatedAt"] },
+  order: [
+    ['id', 'ASC'],
+  ],
 }
 
 exports.index = async (req, res) => {

@@ -23,6 +23,9 @@ const transactionParam = {
     },
   ],
   attributes: { exclude: ["updatedAt"] },
+  order: [
+    ['id', 'ASC'],
+  ],
 };
 
 exports.index = async (req, res) => {
