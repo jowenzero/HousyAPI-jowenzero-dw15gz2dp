@@ -24,7 +24,7 @@ const transactionParam = {
   ],
   attributes: { exclude: ["updatedAt"] },
   order: [
-    ['id', 'ASC'],
+    ['id', 'DEC'],
   ],
 };
 
