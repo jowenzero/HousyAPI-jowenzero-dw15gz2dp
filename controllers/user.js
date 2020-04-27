@@ -1,4 +1,4 @@
-const { User, List } = require("../models");
+const { user, list } = require("../models");
 
 const userParam = {
   include: [
@@ -12,7 +12,7 @@ const userParam = {
 
 exports.index = async (req, res) => {
   try {
-    const users = await User.findAll({
+    const users = await user.findAll({
       ...userParam,
     });
     res.status(200).send({ data: users });
@@ -24,8 +24,8 @@ exports.index = async (req, res) => {
 
 exports.showUser = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.user.id } });
-    res.status(200).send({ data: user });
+    const users = await user.findOne({ where: { id: req.users.id } });
+    res.status(200).send({ data: users });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a user!" })
     console.log(error);
@@ -34,12 +34,12 @@ exports.showUser = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    await User.update(req.body, { where: { id: req.user.id } });
-    const user = await User.findOne({
+    await user.update(req.body, { where: { id: req.users.id } });
+    const users = await user.findOne({
       ...userParam,
-      where: { id: req.user.id },
+      where: { id: req.users.id },
     });
-    res.status(200).send({ data: user });
+    res.status(200).send({ data: users });
   } catch (error) {
     res.status(500).send({ message: "Failed to update user!" })
     console.log(error);
@@ -48,8 +48,8 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
   try {
-    await User.destroy({ where: { id: req.user.id } });
-    const { id } = req.user;
+    await user.destroy({ where: { id: req.users.id } });
+    const { id } = req.users;
     const data = {
       id,
     };
