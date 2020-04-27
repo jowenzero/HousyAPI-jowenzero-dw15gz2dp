@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Transaction = sequelize.define(
-    "Transaction", 
+    "transaction", 
     {
       checkin: DataTypes.DATE,
       checkout: DataTypes.DATE,

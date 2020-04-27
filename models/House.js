@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const House = sequelize.define(
-    "House", 
+    "house", 
     {
       name: DataTypes.STRING,
       address: DataTypes.STRING,
