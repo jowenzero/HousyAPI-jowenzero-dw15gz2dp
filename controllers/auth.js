@@ -10,7 +10,7 @@ exports.login = async (req, res) => {
         username,
       },
     });
-    const ListId = users.ListId;
+    const { listId } = users;
 
     if (!users) {
       res.status(401).send({ message: "Invalid login" });
@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
             const data = {
               username,
               token,
-              ListId,
+              listId,
             };
             res.status(200).send({ data });
           });
@@ -53,13 +53,13 @@ exports.register = async (req, res) => {
           password: hash,
         };
         const newUser = await user.create(value);
-        const ListId = newUser.ListId;
+        const { listId } = newUser;
 
         jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, (err, token) => {
           const data = {
             username,
             token,
-            ListId,
+            listId,
           };
           res.status(201).send({ data });
         });
