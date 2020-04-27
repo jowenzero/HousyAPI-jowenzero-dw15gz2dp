@@ -50,7 +50,7 @@ exports.index = async (req, res) => {
       const houses = await house.findAll({
         ...houseParam,
         where: {
-          CityId: req.query.CityId
+          cityId: req.query.cityId
         },
       });
 
@@ -86,7 +86,7 @@ exports.showHouse = async (req, res) => {
   try {
     const houses = await house.findAll({
       ...houseParam,
-      where: { UserId: req.user.id },
+      where: { userId: req.user.id },
     });
     res.send({ data: houses });
   } catch (error) {
