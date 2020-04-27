@@ -1,23 +1,23 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { User } = require("../models");
+const { user } = require("../models");
 
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({
+    const users = await user.findOne({
       where: {
         username,
       },
     });
-    const { ListId } = user;
+    const { ListId } = users;
 
-    if (!user) {
+    if (!users) {
       res.status(401).send({ message: "Invalid login" });
     } else {
-      bcrypt.compare(password, user.password, (err, result) => {
+      bcrypt.compare(password, users.password, (err, result) => {
         if (result) {
-          jwt.sign({ id: user.id }, process.env.SECRET_KEY, (err, token) => {
+          jwt.sign({ id: users.id }, process.env.SECRET_KEY, (err, token) => {
             const data = {
               username,
               token,
@@ -40,19 +40,19 @@ exports.register = async (req, res) => {
   try {
     const saltRounds = 10;
     const { username, password } = req.body;
-    const user = await User.findOne({
+    const users = await user.findOne({
       where: {
         username,
       },
     });
 
-    if (!user) {
+    if (!users) {
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         const value = {
           ...req.body,
           password: hash,
         };
-        const newUser = await User.create(value);
+        const newUser = await user.create(value);
         const { ListId } = newUser;
 
         jwt.sign({ id: newUser.id }, process.env.SECRET_KEY, (err, token) => {
@@ -77,22 +77,22 @@ exports.password = async (req, res) => {
   try {
     const saltRounds = 10;
     const { oldPass, confirmPass, newPass } = req.body;
-    const user = await User.findOne({
+    const users = await user.findOne({
       where: {
-        id: req.user.id,
+        id: req.users.id,
       },
     });
 
-    if (!user && (oldPass !== confirmPass)) {
+    if (!users && (oldPass !== confirmPass)) {
       res.status(401).send({ message: "Invalid login" });
     } else {
-      bcrypt.compare(confirmPass, user.password, (err, result) => {
+      bcrypt.compare(confirmPass, users.password, (err, result) => {
         if (result) {
           bcrypt.hash(newPass, saltRounds, async (err, hash) => {
             const value = {
               password: hash,
             };
-            await User.update(value, { where: { id: req.user.id } });
+            await user.update(value, { where: { id: req.users.id } });
             res.status(201).send({ message: "Password change successful!"});
           });
         } else {

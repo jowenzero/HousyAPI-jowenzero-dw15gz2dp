@@ -1,4 +1,4 @@
-const { User, List } = require("../models");
+const { user, list } = require("../models");
 
 const userParam = {
   include: [
