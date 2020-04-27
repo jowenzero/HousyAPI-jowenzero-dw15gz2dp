@@ -14,7 +14,7 @@ const houseParam = {
   ],
   attributes: { exclude: ["createdAt", "updatedAt"] },
   order: [
-    ['id', 'DEC'],
+    ['id', 'DESC'],
   ],
 }
 
