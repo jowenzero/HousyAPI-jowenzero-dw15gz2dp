@@ -54,7 +54,7 @@ exports.index = async (req, res) => {
       res.status(200).send({ data: houses });
     }
     else {
-      const houses = await House.findAll({
+      const houses = await house.findAll({
         ...houseParam,
       });
 
