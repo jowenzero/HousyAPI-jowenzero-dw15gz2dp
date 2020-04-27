@@ -1,24 +1,24 @@
-const { Transaction, House, City, User } = require("../models");
+const { transaction, house, city, user } = require("../models");
 const { Op } = require("sequelize");
 
 const transactionParam = {
   include: [
     {
-      model: House,
+      model: house,
       attributes: { exclude: ["createdAt", "updatedAt", "CityId"] },
       include: [
         {
-          model: City,
+          model: city,
           attributes: ["id", "name"],
         },
         {
-          model: User,
+          model: user,
           attributes: ["id", "username"],
         },
       ]
     },
     {
-      model: User,
+      model: user,
       attributes: ["id", "username"],
     },
   ],
@@ -27,10 +27,10 @@ const transactionParam = {
 
 exports.index = async (req, res) => {
   try {
-    const transaction = await Transaction.findAll({
+    const transactions = await transaction.findAll({
       ...transactionParam,
     });
-    res.status(200).send({ data: transaction });
+    res.status(200).send({ data: transactions });
   } catch (error) {
     res.status(500).send({ message: "Failed to view transactions!" })
     console.log(error);
@@ -39,11 +39,11 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
   try {
-    const transaction = await Transaction.findOne({
+    const transactions = await transaction.findOne({
       ...transactionParam,
       where: { id: req.params.id },
     });
-    res.status(200).send({ data: transaction });
+    res.status(200).send({ data: transactions });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a transaction!" })
     console.log(error);
@@ -53,7 +53,7 @@ exports.show = async (req, res) => {
 exports.showTransaction = async (req, res) => {
   try {
     if (req.user.ListId === 2) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -62,10 +62,10 @@ exports.showTransaction = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else if (req.user.ListId === 1) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -74,7 +74,7 @@ exports.showTransaction = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -88,7 +88,7 @@ exports.showTransaction = async (req, res) => {
 exports.showHistory = async (req, res) => {
   try {
     if (req.user.ListId === 2) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -97,10 +97,10 @@ exports.showHistory = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else if (req.user.ListId === 1) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -109,7 +109,7 @@ exports.showHistory = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -123,7 +123,7 @@ exports.showHistory = async (req, res) => {
 exports.showBooking = async (req, res) => {
   try {
     if (req.user.ListId === 2) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -132,10 +132,10 @@ exports.showBooking = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else if (req.user.ListId === 1) {
-      const transaction = await Transaction.findAll({
+      const transactions = await transaction.findAll({
         ...transactionParam,
         where: { 
           [Op.and]: [
@@ -144,7 +144,7 @@ exports.showBooking = async (req, res) => {
           ]
         },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -158,12 +158,12 @@ exports.showBooking = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     if (req.user.ListId === 2) {
-      const newTransaction = await Transaction.create(req.body);
-      const transaction = await Transaction.findOne({
+      const newTransaction = await transaction.create(req.body);
+      const transactions = await transaction.findOne({
         ...transactionParam,
         where: { id: newTransaction.id },
       });
-      res.status(201).send({ data: transaction });
+      res.status(201).send({ data: transactions });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -177,12 +177,12 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     if (req.user.ListId === 1 || req.user.ListId === 2) {
-      await Transaction.update(req.body, { where: { id: req.params.id } });
-      const transaction = await Transaction.findOne({
+      await transaction.update(req.body, { where: { id: req.params.id } });
+      const transactions = await transaction.findOne({
         ...transactionParam,
         where: { id: req.params.id },
       });
-      res.status(200).send({ data: transaction });
+      res.status(200).send({ data: transactions });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
