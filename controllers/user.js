@@ -24,7 +24,7 @@ exports.index = async (req, res) => {
 
 exports.showUser = async (req, res) => {
   try {
-    const users = await user.findOne({ where: { id: req.users.id } });
+    const users = await user.findOne({ where: { id: req.user.id } });
     res.status(200).send({ data: users });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a user!" })
@@ -34,10 +34,10 @@ exports.showUser = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    await user.update(req.body, { where: { id: req.users.id } });
+    await user.update(req.body, { where: { id: req.user.id } });
     const users = await user.findOne({
       ...userParam,
-      where: { id: req.users.id },
+      where: { id: req.user.id },
     });
     res.status(200).send({ data: users });
   } catch (error) {
@@ -48,8 +48,8 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
   try {
-    await user.destroy({ where: { id: req.users.id } });
-    const { id } = req.users;
+    await user.destroy({ where: { id: req.user.id } });
+    const { id } = req.user;
     const data = {
       id,
     };
