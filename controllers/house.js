@@ -1,4 +1,4 @@
-const { House, City, User } = require("../models");
+const { house, city, user } = require("../models");
 const { Op } = require("sequelize");
 
 const houseParam = {
@@ -18,7 +18,7 @@ const houseParam = {
 exports.index = async (req, res) => {
   try {
     if (req.query.typeRent && req.query.belowPrice) {
-      const houses = await House.findAll({
+      const houses = await house.findAll({
         ...houseParam,
         where: {
           [Op.and]: [
@@ -31,7 +31,7 @@ exports.index = async (req, res) => {
       res.status(200).send({ data: houses });
     }
     else if (req.query.typeRent || req.query.belowPrice) {
-      const houses = await House.findAll({
+      const houses = await house.findAll({
         ...houseParam,
         where: {
           [Op.or]: [
@@ -44,7 +44,7 @@ exports.index = async (req, res) => {
       res.status(200).send({ data: houses });
     }
     else if (req.query.CityId) {
-      const houses = await House.findAll({
+      const houses = await house.findAll({
         ...houseParam,
         where: {
           CityId: req.query.CityId
@@ -68,11 +68,11 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
   try {
-    const house = await House.findOne({
+    const houses = await house.findOne({
       ...houseParam,
       where: { id: req.params.id },
     });
-    res.send({ data: house });
+    res.send({ data: houses });
   } catch (error) {
     res.status(500).send({ message: "Failed to view a house!" })
     console.log(error);
@@ -81,11 +81,11 @@ exports.show = async (req, res) => {
 
 exports.showHouse = async (req, res) => {
   try {
-    const house = await House.findAll({
+    const houses = await house.findAll({
       ...houseParam,
       where: { UserId: req.user.id },
     });
-    res.send({ data: house });
+    res.send({ data: houses });
   } catch (error) {
     res.status(500).send({ message: "Failed to view user houses!" })
     console.log(error);
@@ -95,12 +95,12 @@ exports.showHouse = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     if (req.user.ListId === 1) {
-      const newHouse = await House.create(req.body);
-      const house = await House.findOne({
+      const newHouse = await house.create(req.body);
+      const houses = await house.findOne({
         ...houseParam,
         where: { id: newHouse.id },
       });
-      res.status(201).send({ data: house });
+      res.status(201).send({ data: houses });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -114,12 +114,12 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     if (req.user.ListId === 1) {
-      await House.update(req.body, { where: { id: req.params.id } });
-      const house = await House.findOne({
+      await house.update(req.body, { where: { id: req.params.id } });
+      const houses = await house.findOne({
         ...houseParam,
         where: { id: req.params.id },
       });
-      res.status(200).send({ data: house });
+      res.status(200).send({ data: houses });
     }
     else {
       res.status(401).send({ message: "You're unauthorized!" })
@@ -133,7 +133,7 @@ exports.update = async (req, res) => {
 exports.destroy = async (req, res) => {
   try {
     if (req.user.ListId === 1) {
-      await House.destroy({ where: { id: req.params.id } });
+      await house.destroy({ where: { id: req.params.id } });
       const { id } = req.params;
       const data = {
         id,
