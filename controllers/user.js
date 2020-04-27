@@ -3,7 +3,7 @@ const { user, list } = require("../models");
 const userParam = {
   include: [
     {
-      model: List,
+      model: list,
       attributes: ["id", "name"],
     },
   ],
