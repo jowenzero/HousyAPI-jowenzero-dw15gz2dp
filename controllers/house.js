@@ -4,11 +4,11 @@ const { Op } = require("sequelize");
 const houseParam = {
   include: [
     {
-      model: City,
+      model: city,
       attributes: ["id", "name"],
     },
     {
-      model: User,
+      model: user,
       attributes: ["id", "username"],
     },
   ],
