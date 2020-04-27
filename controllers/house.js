@@ -1,4 +1,4 @@
-const { house, city, user } = require("../models");
+const { House, City, User } = require("../models");
 const { Op } = require("sequelize");
 
 const houseParam = {
