@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define(
+  const User = sequelize.define(
     "user", 
     {
       fullName: DataTypes.STRING,
@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }, 
     {}
   );
-  user.associate = function(models) {
-    user.belongsTo(models.list);
-    user.hasMany(models.house);
-    user.hasMany(models.transaction);
+  User.associate = function(models) {
+    User.belongsTo(models.list);
+    User.hasMany(models.house);
+    User.hasMany(models.transaction);
   };
-  return user;
+  return User;
 };
