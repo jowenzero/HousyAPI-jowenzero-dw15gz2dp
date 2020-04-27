@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   City.associate = function(models) {
-    City.hasMany(models.House);
+    City.hasMany(models.house);
   };
   return City;
 };

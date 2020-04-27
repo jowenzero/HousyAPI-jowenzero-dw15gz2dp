@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   List.associate = function(models) {
-    List.hasMany(models.User);
+    List.hasMany(models.user);
   };
   return List;
 };

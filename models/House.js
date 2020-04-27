@@ -28,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     {})
   ;
   House.associate = function(models) {
-    House.belongsTo(models.City);
-    House.hasMany(models.Transaction);
-    House.belongsTo(models.User);
+    House.belongsTo(models.city);
+    House.hasMany(models.transaction);
+    House.belongsTo(models.user);
   };
   return House;
 };
